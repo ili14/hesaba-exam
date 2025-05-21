@@ -1,0 +1,49 @@
+.app {
+  max-width: 400px;
+  margin: auto;
+  font-family: sans-serif;
+  padding: 16px;
+}
+.wallet {
+  margin-bottom: 24px;
+}
+.wallet__title {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+.wallet__row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.exchange-form {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto auto auto;
+  gap: 8px;
+  align-items: center;
+}
+.exchange-form__select {
+  padding: 4px;
+}
+.exchange-form__input {
+  width: 80px;
+  padding: 4px;
+  text-align: right;
+}
+.exchange-form__rate {
+  grid-column: span 6;
+  text-align: center;
+  margin: 8px 0;
+}
+.exchange-form__swap {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.exchange-form__button {
+  grid-column: span 6;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
