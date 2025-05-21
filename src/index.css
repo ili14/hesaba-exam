@@ -10,6 +10,7 @@
 .wallet__title {
   font-size: 1.2rem;
   margin-bottom: 8px;
+  background-color: aqua;
 }
 .wallet__row {
   display: flex;

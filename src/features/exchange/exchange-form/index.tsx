@@ -28,22 +28,42 @@ export const ExchangeForm: React.FC = () => {
     }
     return 0;
   }, [data]);
-  
+
   const parsed = useMemo(() => parseFloat(amount) || 0, [amount]);
 
   const onExchange = useCallback(() => {
-    if (from >= amount) {if (parsed > 0) dispatch(exchange({ from, to, amount: parsed, rate }))}else{
-      alert("You don't have enough money to exchange")
-    };
+    if (from >= amount) {
+      if (parsed > 0) dispatch(exchange({ from, to, amount: parsed, rate }));
+    } else {
+      alert("You don't have enough money to exchange");
+    }
   }, [dispatch, from, parsed, to, rate, amount]);
+
+  const onToCurrencyChange = useCallback(
+    (v: string) => {
+      if (from !== v) dispatch(setTo(v));
+    },
+    [dispatch, from]
+  );
+
+  const onFromCurrencyChange = useCallback(
+    (v: string) => {
+      if (to !== v) dispatch(setFrom(v));
+    },
+    [dispatch, to]
+  );
+
+  const onSwapBtnClick = useCallback(()=>{
+    dispatch(swap());
+  },[dispatch]);
 
   return (
     <div className="exchange-form">
-      <CurrencySelect value={from} onChange={(v) => dispatch(setFrom(v))} options={currencies} />
+      <CurrencySelect value={from} onChange={onFromCurrencyChange} options={currencies} />
       <NumberInput value={amount} onChange={(v) => dispatch(setAmount(v))} />
       <span className="exchange-form__rate">{isLoading ? "..." : `1 ${from} = ${rate.toFixed(4)} ${to}`}</span>
-      <CurrencySelect value={to} onChange={(v) => dispatch(setTo(v))} options={currencies} />
-      <SwapButton onClick={() => dispatch(swap())} />
+      <CurrencySelect value={to} onChange={onToCurrencyChange} options={currencies} />
+      <SwapButton onClick={onSwapBtnClick} />
       <button className="exchange-form__button" onClick={onExchange} disabled={parsed <= 0 || isLoading}>
         تبدیل
       </button>
