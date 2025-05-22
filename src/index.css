@@ -1,16 +1,17 @@
-.app {
-  max-width: 400px;
-  margin: auto;
-  font-family: sans-serif;
-  padding: 16px;
+*{
+  font-family: Arial, sans-serif;
 }
+
 .wallet {
   margin-bottom: 24px;
 }
 .wallet__title {
-  font-size: 1.2rem;
+  font-size: 2.2rem;
   margin-bottom: 8px;
-  background-color: aqua;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 20px;
+  margin-bottom: 20px;
 }
 .wallet__row {
   display: flex;
@@ -18,33 +19,109 @@
   margin-bottom: 4px;
 }
 .exchange-form {
-  display: grid;
-  grid-template-columns: auto 1fr auto auto auto auto;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
-  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
 }
-.exchange-form__select {
-  padding: 4px;
+
+.exchange-form__from-section {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  height: 130px;
+  padding: 10px 0;
 }
-.exchange-form__input {
+
+.exchange-form__from-section-currency-select {
+  font-size: 2rem;
+}
+
+.exchange-form__from-section-amount-input {
   width: 80px;
-  padding: 4px;
-  text-align: right;
+  font-size: 1.2rem;
 }
+
+.exchange-form_input-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 1px 1px;
+}
+
+.exchange-form__to-section {
+  background-color: rgb(239, 239, 239);
+  height: 130px;
+  padding: 10px 0;
+}
+.exchange-form__to-section-cash {
+  font-size: 0.8rem;
+  margin-left: 10px;
+  color: rgb(138, 138, 138);
+  font-weight: 700;
+}
+.exchange-form__from-section-cash {
+  font-size: 0.8rem;
+  margin-left: 10px;
+  color: rgb(138, 138, 138);
+  font-weight: 700;
+}
+
 .exchange-form__rate {
   grid-column: span 6;
   text-align: center;
   margin: 8px 0;
+  position: absolute;
+  top: 130px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border-radius: 30px;
+  padding: 10px 20px;
+  box-shadow: 0 0 5px rgb(219, 219, 219);
+  color: rgba(2, 95, 255, 0.793);
+  font-weight: 600;
 }
 .exchange-form__swap {
   background: none;
   border: none;
   cursor: pointer;
+  position: absolute;
+  top: 140px;
+  font-size: 1.5rem;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .exchange-form__button {
-  grid-column: span 6;
-  padding: 8px;
+  width: 200px;
+  height: 40px;
+  font-size: 0.9rem;
+  background-color: #7700a9;
+  color: white;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
+  border-radius: 40px;
+  margin: 8px auto;
+}
+.exchange-form__button:hover {
+  opacity: 0.7;
+}
+
+.input-base {
+  background: transparent;
+  border: 0;
+  padding: 4px;
+  outline: none;
+}
+
+.select-base {
+  width: 100px;
+  background: transparent;
+  border: 0;
+  padding: 4px;
+  font-weight: 700;
+  font-size: 2rem;
 }

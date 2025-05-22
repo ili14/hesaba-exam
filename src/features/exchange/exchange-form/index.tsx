@@ -7,6 +7,7 @@ import { exchange } from "../../wallet/walletSlice";
 import { CurrencySelect } from "../../../components/currency-select";
 import { NumberInput } from "../../../components/number-input";
 import { SwapButton } from "../../../components/swap-button";
+import CashSpecific from "../../cash-specefic";
 
 const currencies = ["USD", "EUR", "GBP"];
 
@@ -17,6 +18,7 @@ export const ExchangeForm: React.FC = () => {
   const { data, isLoading } = useQuery(["rate", from, to], () => fetchExchangeRate(from, to), {
     refetchInterval: 5000,
     staleTime: 5000,
+    // ! این رو برای این true کردم که اگر مثلا سیستم نوتیفیکشن داشتیم به کاربر اطلاع بده که قیمت تغییر کرده
     refetchIntervalInBackground: true,
   });
 
@@ -53,19 +55,32 @@ export const ExchangeForm: React.FC = () => {
     [dispatch, to]
   );
 
-  const onSwapBtnClick = useCallback(()=>{
+  const onSwapBtnClick = useCallback(() => {
     dispatch(swap());
-  },[dispatch]);
+  }, [dispatch]);
+
+  const handleAmountChange = useCallback((v: string) => dispatch(setAmount(v)), [dispatch]);
 
   return (
     <div className="exchange-form">
-      <CurrencySelect value={from} onChange={onFromCurrencyChange} options={currencies} />
-      <NumberInput value={amount} onChange={(v) => dispatch(setAmount(v))} />
+      <div className="exchange-form__from-section">
+        <div className="exchange-form_input-row">
+          <CurrencySelect value={from} className="exchange-form__from-section-currency-select" onChange={onFromCurrencyChange} options={currencies} />
+          <NumberInput value={amount} className="exchange-form__from-section-amount-input" onChange={handleAmountChange} />
+        </div>
+        <CashSpecific className="exchange-form__from-section-cash" currencyName={from} />
+      </div>
+
       <span className="exchange-form__rate">{isLoading ? "..." : `1 ${from} = ${rate.toFixed(4)} ${to}`}</span>
-      <CurrencySelect value={to} onChange={onToCurrencyChange} options={currencies} />
       <SwapButton onClick={onSwapBtnClick} />
+
+      <div className="exchange-form__to-section">
+        <CurrencySelect value={to} className="exchange-form__to-currency-select" onChange={onToCurrencyChange} options={currencies} />
+        <CashSpecific className="exchange-form__to-section-cash" currencyName={to} />
+      </div>
+
       <button className="exchange-form__button" onClick={onExchange} disabled={parsed <= 0 || isLoading}>
-        تبدیل
+        Exchange
       </button>
     </div>
   );
